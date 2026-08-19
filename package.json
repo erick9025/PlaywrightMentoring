@@ -1,0 +1,21 @@
+{
+  "name": "playwrightmentoring",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erick9025/PlaywrightMentoring.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/erick9025/PlaywrightMentoring/issues"
+  },
+  "homepage": "https://github.com/erick9025/PlaywrightMentoring#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0"
+  }
+}
