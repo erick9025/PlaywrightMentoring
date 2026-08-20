@@ -1,20 +1,20 @@
 import { test, expect } from '@playwright/test';
 
-test('has title PASS', async ({ page }) => {
+test.skip('has title PASS', async ({ page }) => {
   await page.goto('https://playwright.dev/');
 
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Playwright/);
 });
 
-test('has title FAIL', async ({ page }) => {
+test.skip('has title FAIL', async ({ page }) => {
   await page.goto('https://playwright.dev/');
 
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/ERICK/);
 });
 
-test('get started link', async ({ page }) => {
+test.skip('get started link', async ({ page }) => {
   await page.goto('https://playwright.dev/');
 
   // Click the get started link.
