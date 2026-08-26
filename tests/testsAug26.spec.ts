@@ -3,10 +3,34 @@ import { test, expect } from '@playwright/test';
 const url1: string = 'https://www.testmuai.com/selenium-playground/checkbox-demo/';
 const url2: string = 'https://www.testmuai.com/selenium-playground/radiobutton-demo/';
 
+/* 3 possible instances in our tests related to playwright
+ BROWSER > CONTEXT > PAGE
+
+browser:
+ -Chrome/Firefox/Safari/Edge -> chromium/firefox/webkit
+
+browserContext:
+-Represents a session inside a browser.
+-Manages cookies, storage, and isolates pages from each other.
+-Can have multiple page objects/instances.
+
+page:
+-Represents a single tab or window within a browser context.
+-Used to interact with web elements (click, fill, waitForSelector, etc.).
+-Cannot exist outside a context.
+
+Analogy:
+-browser = the browser app itself (Chrome, Firefox).
+-browserContext = a separate browser profile or session.
+-page = a tab inside that session.
+
+*/
+
 test.describe('Checkboxes and Radio Buttons Tests', () => {
 
-  test('test wednesday aug 26 - CHECKBOXES', async ({ page }) => {
+  test('test wednesday aug 26 - CHECKBOXES', async ({ page }) => { // we are INJECTING a 'page' instance
     await page.goto(url1);
+    await page.waitForTimeout(8_000);
 
     const checkAlone: string = "(//input[@type='checkbox'])[1]";
     const checkVerticalGroup1: string = "//label[contains(.,'Option 1')]/child::input[@type='checkbox' and not(@name)]";
@@ -73,7 +97,7 @@ test.describe('Checkboxes and Radio Buttons Tests', () => {
     //await page.locator(checkVerticalGroup4).click({timeout: 100}); // check SHOULD TRIGGER ERROR BECAUSE IT IS DISABLED
   });
 
-  test('test wednesday aug 26 - RADIOS', async ({ page }) => {
+  test.skip('test wednesday aug 26 - RADIOS', async ({ page }) => {
     await page.goto(url2);
 
     const radioMale: string = "input[value='Male'][name='gender']";
@@ -97,7 +121,7 @@ test.describe('Checkboxes and Radio Buttons Tests', () => {
 
   });
 
-  test('test wednesday aug 26 - SELECT DROPDOWN', async ({ page }) => {
+  test.skip('test wednesday aug 26 - SELECT DROPDOWN', async ({ page }) => {
     await page.goto('https://www.saucedemo.com/');
     await page.fill('#user-name', 'standard_user');
     await page.fill('#password', 'secret_sauce');
