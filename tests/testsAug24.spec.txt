@@ -1,6 +1,9 @@
 import { test, expect, Locator } from '@playwright/test';
 
-test('complete login in sauce demo LOCATOR', async ({ page }) => {
+const url1: string = 'https://www.testmuai.com/selenium-playground/checkbox-demo/';
+const url2: string = 'https://www.testmuai.com/selenium-playground/radiobutton-demo/';
+
+test('test wednesday aug 26', async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
 
   await page.fill('#user-name', 'standard_user');
