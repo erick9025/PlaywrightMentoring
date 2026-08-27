@@ -3,7 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "testAll": "npx playwright test",
+    "version:node": "node -v",
+    "version:npm": "npm -v",
+    "version:pw": "npx playwright --version",
+    "install-latest:node": "nvm install latest",
+    "install-latest:node2": "nvm install node --reinstall-packages-from=node",
+    "install-latest:npm": "npm install -g npm@latest",
+    "install-latest:pw": "npm install -D @playwright/test@latest",
+    "install-latest:pwDrivers": "npx playwright install",
+    "regen": "npx playwright show-report",
+    "gitHistoryRecent": "git log --oneline -n 5",
+    "gitHistoryExtended": "git log --oneline -n 25"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/erick9025/PlaywrightMentoring.git"
@@ -16,6 +29,6 @@
   "homepage": "https://github.com/erick9025/PlaywrightMentoring#readme",
   "devDependencies": {
     "@playwright/test": "^1.62.1",
-    "@types/node": "^26.2.0"
+    "@types/node": "^26.4.0"
   }
 }
