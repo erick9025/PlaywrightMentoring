@@ -15,7 +15,7 @@
     "install-latest:pwDrivers": "npx playwright install",
     "regen": "npx playwright show-report",
     "gitHistoryRecent": "git log --oneline -n 5",
-    "gitHistoryExtended": "git log --oneline -n 25"
+    "gitHistoryExtended": "git log --pretty=format:\"%h %an %s\" -n 25"
   },
   "repository": {
     "type": "git",
