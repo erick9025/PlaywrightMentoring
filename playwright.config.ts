@@ -44,7 +44,7 @@ export default defineConfig({
     launchOptions: {
       slowMo: 100,
     },
-    headless: false // false is HEADED/VISIBLE, true is HEADLESS/INVISIBLE
+    headless: true // false is HEADED/VISIBLE, true is HEADLESS/INVISIBLE
   },
 
   /* Run your local dev server before starting the tests */
