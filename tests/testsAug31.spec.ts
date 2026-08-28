@@ -1,22 +1,20 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 test.describe('Checkboxes and Radio Buttons Tests', () => {
 
   const url1: string = 'https://www.testmuai.com/selenium-playground/checkbox-demo/';
+  const checkAlone: string = "(//input[@type='checkbox'])[1]";
+  const checkVerticalGroup1: string = "//label[contains(.,'Option 1')]/child::input[@type='checkbox' and not(@name)]";
+  const checkVerticalGroup2: string = "//label[contains(.,'Option 2')]/child::input[@type='checkbox' and not(@name)]";
+  const checkVerticalGroup3: string = "//label[contains(.,'Option 3')]/child::input[@type='checkbox' and not(@name)]"; //should be disabled (NOT CLICKABLE)
+  const checkVerticalGroup4: string = "//label[contains(.,'Option 4')]/child::input[@type='checkbox' and not(@name)]"; //should be disabled (NOT CLICKABLE)
+  const checkHorizontalGroup1: string = "//label[contains(.,'Option 1')]/child::input[@type='checkbox' and contains(@name,'option')]";
+  const checkHorizontalGroup2: string = "//label[contains(.,'Option 2')]/child::input[@type='checkbox' and contains(@name,'option')]";
+  const checkHorizontalGroup3: string = "//label[contains(.,'Option 3')]/child::input[@type='checkbox' and contains(@name,'option')]";
+  const checkHorizontalGroup4: string = "//label[contains(.,'Option 4')]/child::input[@type='checkbox' and contains(@name,'option')]"; 
 
   test('Check checkboxes 1 by 1', async ({ page }) => {
-    await page.goto(url1);
-    
-
-    const checkAlone: string = "(//input[@type='checkbox'])[1]";
-    const checkVerticalGroup1: string = "//label[contains(.,'Option 1')]/child::input[@type='checkbox' and not(@name)]";
-    const checkVerticalGroup2: string = "//label[contains(.,'Option 2')]/child::input[@type='checkbox' and not(@name)]";
-    const checkVerticalGroup3: string = "//label[contains(.,'Option 3')]/child::input[@type='checkbox' and not(@name)]"; //should be disabled
-    const checkVerticalGroup4: string = "//label[contains(.,'Option 4')]/child::input[@type='checkbox' and not(@name)]"; //should be disabled
-    const checkHorizontalGroup1: string = "//label[contains(.,'Option 1')]/child::input[@type='checkbox' and contains(@name,'option')]";
-    const checkHorizontalGroup2: string = "//label[contains(.,'Option 2')]/child::input[@type='checkbox' and contains(@name,'option')]";
-    const checkHorizontalGroup3: string = "//label[contains(.,'Option 3')]/child::input[@type='checkbox' and contains(@name,'option')]";
-    const checkHorizontalGroup4: string = "//label[contains(.,'Option 4')]/child::input[@type='checkbox' and contains(@name,'option')]"; 
+    await page.goto(url1);    
 
     // Validate that all 9 checkboxes are visible
     await expect(page.locator(checkAlone)).toBeVisible();
@@ -54,6 +52,9 @@ test.describe('Checkboxes and Radio Buttons Tests', () => {
     // Check that the checkbox is unchecked
     await expect(page.locator(checkAlone)).not.toBeChecked();
 
+    // Click again to check
+    await page.locator(checkAlone).click(); // check
+
     // Click the remaining enabled checkboxes
     await page.locator(checkVerticalGroup1).click();
     await page.locator(checkVerticalGroup2).click();
@@ -61,22 +62,12 @@ test.describe('Checkboxes and Radio Buttons Tests', () => {
     await page.locator(checkHorizontalGroup2).click();
     await page.locator(checkHorizontalGroup3).click();
     await page.locator(checkHorizontalGroup4).click();
-    
+
+    await verifyAllCheckboxesAreEnabled(page);
   });
 
   test('Check checkboxes all at once', async ({ page }) => {
     await page.goto(url1);
-    
-
-    const checkAlone: string = "(//input[@type='checkbox'])[1]";
-    const checkVerticalGroup1: string = "//label[contains(.,'Option 1')]/child::input[@type='checkbox' and not(@name)]";
-    const checkVerticalGroup2: string = "//label[contains(.,'Option 2')]/child::input[@type='checkbox' and not(@name)]";
-    const checkVerticalGroup3: string = "//label[contains(.,'Option 3')]/child::input[@type='checkbox' and not(@name)]"; //should be disabled
-    const checkVerticalGroup4: string = "//label[contains(.,'Option 4')]/child::input[@type='checkbox' and not(@name)]"; //should be disabled
-    const checkHorizontalGroup1: string = "//label[contains(.,'Option 1')]/child::input[@type='checkbox' and contains(@name,'option')]";
-    const checkHorizontalGroup2: string = "//label[contains(.,'Option 2')]/child::input[@type='checkbox' and contains(@name,'option')]";
-    const checkHorizontalGroup3: string = "//label[contains(.,'Option 3')]/child::input[@type='checkbox' and contains(@name,'option')]";
-    const checkHorizontalGroup4: string = "//label[contains(.,'Option 4')]/child::input[@type='checkbox' and contains(@name,'option')]"; 
 
     // Validate that all 9 checkboxes are visible
     await expect(page.locator(checkAlone)).toBeVisible();
@@ -114,13 +105,8 @@ test.describe('Checkboxes and Radio Buttons Tests', () => {
     // Check that the checkbox is unchecked
     await expect(page.locator(checkAlone)).not.toBeChecked();
 
-    // Click the remaining enabled checkboxes
-    await page.locator(checkVerticalGroup1).click();
-    await page.locator(checkVerticalGroup2).click();
-    await page.locator(checkHorizontalGroup1).click();
-    await page.locator(checkHorizontalGroup2).click();
-    await page.locator(checkHorizontalGroup3).click();
-    await page.locator(checkHorizontalGroup4).click();
+    // Click again to check
+    await page.locator(checkAlone).click(); // check
 
     // Click multiple checkboxes at the same time
     await Promise.all([
@@ -130,6 +116,21 @@ test.describe('Checkboxes and Radio Buttons Tests', () => {
       page.locator(checkHorizontalGroup2).click(),
       page.locator(checkHorizontalGroup3).click(),
       page.locator(checkHorizontalGroup4).click()
-    ]);    
+    ]);
+
+    await page.waitForTimeout(500);
+    await verifyAllCheckboxesAreEnabled(page);
   });
+
+  async function verifyAllCheckboxesAreEnabled(page: Page): Promise<void> {
+    await expect(page.locator(checkAlone)).toBeChecked();
+    await expect(page.locator(checkVerticalGroup1)).toBeChecked();
+    await expect(page.locator(checkVerticalGroup2)).toBeChecked();
+    await expect(page.locator(checkHorizontalGroup1)).toBeChecked();
+    await expect(page.locator(checkHorizontalGroup2)).toBeChecked();
+    await expect(page.locator(checkHorizontalGroup3)).toBeChecked();
+    await expect(page.locator(checkHorizontalGroup4)).toBeChecked();
+
+    console.log("All 7 clickable checkboxes are enabled before finishing test");
+  }
 });

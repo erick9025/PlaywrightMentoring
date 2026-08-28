@@ -42,8 +42,9 @@ export default defineConfig({
     trace: 'on',
     viewport: { width: 1980, height: 1080 }, // HD resolution but is being overriden by projects config (chromiu, etc.)
     launchOptions: {
-      slowMo: 500,
+      slowMo: 100,
     },
+    headless: false // false is HEADED/VISIBLE, true is HEADLESS/INVISIBLE
   },
 
   /* Run your local dev server before starting the tests */
