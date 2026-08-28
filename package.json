@@ -7,6 +7,8 @@
     "testAll": "npx playwright test --workers=8",
     "testAll1Thread": "npx playwright test --workers=1",
     "testAllHead": "npx playwright test --headed",
+    "testAug31": "npx playwright test testsAug31 --workers=4 --retries=0",
+    "testAug31Head": "npx playwright test testsAug31 --workers=1 --retries=0 --headed",
     "version:node": "node -v",
     "version:npm": "npm -v",
     "version:pw": "npx playwright --version",

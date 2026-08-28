@@ -40,7 +40,10 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',
-    viewport: { width: 1980, height: 1080 } // HD resolution but is being overriden by projects config (chromiu, etc.)
+    viewport: { width: 1980, height: 1080 }, // HD resolution but is being overriden by projects config (chromiu, etc.)
+    launchOptions: {
+      slowMo: 500,
+    },
   },
 
   /* Run your local dev server before starting the tests */

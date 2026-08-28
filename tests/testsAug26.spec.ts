@@ -27,9 +27,7 @@ Analogy:
 
 */
 
-test.describe('Checkboxes and Radio Buttons Tests', () => {
-
-  // ToDo Erick Aug 27 - change injection to inject browser or context and build page locally with a different resolution and demonstrate
+test.describe('Checkboxes and Radio Buttons Tests', () => {  
 
   test('test wednesday aug 26 - CHECKBOXES inject PAGE (FULL RESOLUTION X 1 TAB)', async ({ page }) => { // we are INJECTING a 'PAGE' instance, we forget about declaring it, it is done automatically
     await page.goto(url1);
