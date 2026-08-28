@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "testAll": "npx playwright test",
+    "testAll": "npx playwright test --workers=8",
+    "testAll1Thread": "npx playwright test --workers=1",
+    "testAllHead": "npx playwright test --headed",
     "version:node": "node -v",
     "version:npm": "npm -v",
     "version:pw": "npx playwright --version",
