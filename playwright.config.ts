@@ -12,7 +12,7 @@ import { defineConfig } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  timeout: 60_000,
+  timeout: 10_000, // 60 seconds = 1 minute
   expect: {
     /**
      * Maximum time expect() should wait for the condition to be met.
