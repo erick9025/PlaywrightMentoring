@@ -21,8 +21,9 @@ test.describe('Sauce Labs Store DEMO - POM', () => {
   });
 });
 
-// ToDo move object creation to BEFORE hook
-// ToDo declare locators as private readonly STRINGS
-// ToDo update login method to receive default user and password
-// ToDo refactor addTwoProducts to addProduct that receives a list and increment the counter
-// ToDo protected click method in basePage with extended logs (string description)
+// ToDo 1 move object creation to BEFORE hook
+// ToDo 2 declare locators as private readonly STRINGS
+// ToDo 3 update login method to receive default user and password
+// ToDo 4 refactor addTwoProducts to addProduct that receives a list and increment the counter
+// ToDo 5 protected click method in basePage with extended logs (string description)
+// ToDo 6 productsPage create a locator with {{key}} and new utility method to replace it to make it dynamic
