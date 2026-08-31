@@ -3,6 +3,8 @@ import { BasePage } from './parent/basePage';
 
 export class ProductsPage extends BasePage {
 
+    private _howManyProductsAdded: number = 0;
+
     public async addTwoProducts(): Promise<void> {
         // STORE LOCATORS INSIDE VARIABLES as strings, so that they can be reused later in the test
         const fleeceJacketButtonLocator: string = "//div[@class='inventory_item_description' and contains(.,'Fleece Jacket')]//button"; // '//div[@class='inventory_item_description' and contains(.,'Fleece Jacket')]//child::button' OR '//div[@class='inventory_item_description' and contains(.,'Fleece Jacket')]//descendant::button'
