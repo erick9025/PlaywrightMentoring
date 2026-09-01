@@ -4,25 +4,25 @@ import { BasePage } from './parent/basePage';
 export class ProductsPage extends BasePage {
 
     private _howManyProductsAdded: number = 0;
+    private _buttonAnyProduct: string = "//div[@class='inventory_item_description' and contains(.,'{{key}}')]//button";
 
-    public async addTwoProducts(): Promise<void> {
-        // STORE LOCATORS INSIDE VARIABLES as strings, so that they can be reused later in the test
-        const fleeceJacketButtonLocator: string = "//div[@class='inventory_item_description' and contains(.,'Fleece Jacket')]//button"; // '//div[@class='inventory_item_description' and contains(.,'Fleece Jacket')]//child::button' OR '//div[@class='inventory_item_description' and contains(.,'Fleece Jacket')]//descendant::button'
-        const backpackButtonLocator: string = "//div[@class='inventory_item_description' and contains(.,'Backpack')]//button";
+    public async addProducts(wantedProduct: string): Promise<void> {
+        const finalLocator: string = this._buttonAnyProduct.replace("{{key}}", wantedProduct);
 
         // Add them
-        await this.page.click(fleeceJacketButtonLocator);
-        await this.page.click(backpackButtonLocator);
+        await this.clickElement(finalLocator, `Add Product: ${wantedProduct}`);
+
+        this._howManyProductsAdded++; // 1st call: 0->1, 2nd call: 1->2, 3rd call: 2->3, etc.
 
         // Check that button text changed to "Remove" after adding the items to the cart
-        await expect(this.page.locator(fleeceJacketButtonLocator)).toHaveText('Remove');
-        await expect(this.page.locator(backpackButtonLocator)).toHaveText('Remove');
+        await expect(this.page.locator(finalLocator)).toHaveText('Remove');
 
         // Check that button does NOT say anymore "Add to cart" after adding the items to the cart
-        await expect(this.page.locator(fleeceJacketButtonLocator)).not.toHaveText('Add to cart');
-        await expect(this.page.locator(backpackButtonLocator)).not.toHaveText('Add to cart');
+        await expect(this.page.locator(finalLocator)).not.toHaveText('Add to cart');
 
         // Check that counter was updated correctly
-        await expect(this.page.locator('.shopping_cart_badge')).toHaveText('2');
+        await expect(this.page.locator('.shopping_cart_badge')).toHaveText(this._howManyProductsAdded.toString());
+
+        console.log("So far we have added " + this._howManyProductsAdded + " products to the cart.");
     }
 }
