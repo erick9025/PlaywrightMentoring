@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test';
-import { BasePage } from './parent/basePage';
+import { BasePage } from '../../parent/basePage';
+import { TestUtilities } from '../../../utils/testUtilities';
 
 export class ProductsPage extends BasePage {
 
@@ -23,6 +24,6 @@ export class ProductsPage extends BasePage {
         // Check that counter was updated correctly
         await expect(this.page.locator('.shopping_cart_badge')).toHaveText(this._howManyProductsAdded.toString());
 
-        console.log("So far we have added " + this._howManyProductsAdded + " products to the cart.");
+        TestUtilities.logToConsole("So far we have added " + this._howManyProductsAdded + " products to the cart.");
     }
 }

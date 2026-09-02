@@ -1,5 +1,8 @@
 import { defineConfig } from '@playwright/test';
 
+const currentEnv: string = 'UAT';
+export const env: string = process.env.TEST_ENV || currentEnv;
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv

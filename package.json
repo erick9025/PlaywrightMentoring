@@ -11,6 +11,7 @@
     "testAug31Head": "npx playwright test testsAug31 --workers=1 --retries=0 --headed",
     "testAug31Both": "npx playwright test testsAug31 testsAug20 --workers=4 --retries=0",
     "testAug31BothAlternate": "npx playwright test \"testsAug(20|31)\" --workers=4 --retries=0",
+    "testSauceLabs": "npx playwright test testsPomSauce --workers=4 --retries=0",
     "version:node": "node -v",
     "version:npm": "npm -v",
     "version:pw": "npx playwright --version",
