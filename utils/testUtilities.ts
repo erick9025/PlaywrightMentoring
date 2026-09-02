@@ -1,4 +1,4 @@
-import { test } from "../tests/parentTests/baseTestSauceLabs";
+import { test } from '@playwright/test';
 
 export class TestUtilities {
     public static logToConsoleBasic(message: string): void {
