@@ -8,7 +8,7 @@ export class ProductsPage extends BasePage {
     private _buttonAnyProduct: string = "//div[@class='inventory_item_description' and contains(.,'{{key}}')]//button";
 
     public async addProducts(wantedProduct: string): Promise<void> {
-        const finalLocator: string = this._buttonAnyProduct.replace("{{key}}", wantedProduct);
+        const finalLocator: string = TestUtilities.replaceKeyInLocator(this._buttonAnyProduct, wantedProduct);
 
         // Add them
         await this.clickElement(finalLocator, `Add Product: ${wantedProduct}`);

@@ -11,9 +11,9 @@ export class LoginPage extends BasePage {
     public async loginWithCredentials(username: string = "standard_user", password: string = "secret_sauce"): Promise<void> {
         await this.openPage("https://www.saucedemo.com/");
         
-        await this.enterText(this._usernameInputLocator, "Username", username);
-        await this.enterText(this._passwordInputLocator, "Password", password);
-        await this.clickElementByLocator(this._loginButtonLocator, "Login Button");
+        await this.enterText(this._usernameInputLocator, "Username [Input]", username, 9_000); // 9 seconds
+        await this.enterText(this._passwordInputLocator, "Password [Input]", password, 1_000); // 1 second
+        await this.clickElementByLocator(this._loginButtonLocator, "Login [Button]");
 
         await expect(this.page).toHaveURL("https://www.saucedemo.com/inventory.html"); // Expect a title "to contain" a substring. This to avoid false positive test result, since the URL will not match the expected URL due to the incorrect password.
     }

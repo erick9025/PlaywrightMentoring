@@ -10,8 +10,8 @@ export class TestUtilities {
         // Timestamp is local when running locally, is easter when running on CI
         const timestamp: string = this.returnCurrentTimeStamp();
         TestUtilities.safeAnnotationsPush({
-            type: `${timestamp}`,
-            description: `${message}`
+            type: `${timestamp}`, // bold
+            description: `${message}` // regular text
         });
     }
 
@@ -28,9 +28,12 @@ export class TestUtilities {
             if (process.env.CI) return;
             test.info().annotations.push(annotation);
         } 
-        catch (e) {
+        catch (error: Error | unknown) {
             // test.info() is only available during active test execution
             // Silently skip annotation if not in a test context
+            
+            // If not possible to send output to test.info() > annotations, log to console instead
+            console.info(`[TestUtilities] Unable to push annotation: ${JSON.stringify(annotation)}. Error: ${error}`);
         }
     }
 
@@ -54,5 +57,18 @@ export class TestUtilities {
         const hoursStr = String(hours).padStart(2, '0');
         
         return `${year}-${month}-${day} ${hoursStr}:${minutes}:${seconds}.${milliseconds} ${ampm}`;
+    }
+
+    // locator with 2 different keys, e.g., "//div[@class='inventory_item_description' and contains(.,'{{key1}}')]//button[contains(.,'{{key2}}')]"
+    // for above example do 2 calls to replaceCustomKey() to replace key1 and key2 with their respective values
+    // let newLocator = TestUtilities.replaceCustomKey(originalLocator, value1, "key1");
+    // newLocator = TestUtilities.replaceCustomKey(originalLocator, value2, "key2");
+    public static replaceCustomKey(original: string, replaceValue: string, keyName: string): string {
+        return original.replace(`{{${keyName}}}`, replaceValue);
+    }
+
+    // if there is just one key and it is called "key", then use this method instead of replaceCustomKey()
+    public static replaceKeyInLocator(original: string, replaceValue: string): string {
+        return original.replace("{{key}}", replaceValue);
     }
 }

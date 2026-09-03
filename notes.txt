@@ -2,7 +2,6 @@ https://www.testmuai.com/selenium-playground/checkbox-demo/
 https://www.testmuai.com/selenium-playground/radiobutton-demo/
  
 // PENDING Thursday Sep 3rd
-// ToDo 1: Once on cart extract the total and expect it is greater than 0.00
 // ToDo 2: Create ASSERTS class with custom asserts
 // ToDo 3: Create enum to store the 4 options to sort the products on the products page. 
 // ToDo 4: Then create a method in the ProductsPage class to sort the products based on the enum value passed as parameter

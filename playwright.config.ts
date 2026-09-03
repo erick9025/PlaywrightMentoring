@@ -15,7 +15,7 @@ export const env: string = process.env.TEST_ENV || currentEnv;
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  timeout: 10_000, // 60 seconds = 1 minute
+  timeout: 20_000, // 60 seconds = 1 minute
   expect: {
     /**
      * Maximum time expect() should wait for the condition to be met.

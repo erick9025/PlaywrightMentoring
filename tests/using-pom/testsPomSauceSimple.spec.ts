@@ -20,6 +20,9 @@ test.describe('Sauce Labs Store DEMO - POM', () => {
     await loginPage.loginWithCredentials();
     await productsPage.addProducts('Jack');
     await productsPage.addProducts('Backpack');
-    await cartPage.goToCart();
+    await cartPage.goToCart();    
+    await cartPage.goToCheckout();
+    await cartPage.enterCheckoutInformationAndContinue('Erick', 'Jimenez', '12345');
+    await cartPage.verifyTotalPriceIsGreaterThanZero();
   });
 });

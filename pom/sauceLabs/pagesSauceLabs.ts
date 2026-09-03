@@ -3,8 +3,11 @@ import { LoginPage } from './pageObjects/loginPage';
 import { ProductsPage } from './pageObjects/productsPage';
 import { CartPage } from './pageObjects/cartPage';
 
+// Wrapper class that consolidates all page objects for the Sauce Labs Store POM in 1 place. 
+// This class is used to create a single instance of all page objects, which can be reused across tests. It also provides a single point of access to all page objects, making it easier to manage and maintain the POM structure.
 export class PagesSauceLabs {
 
+    // All page objects are private to ensure encapsulation and prevent external modification
     private _loginPage!: LoginPage;
     private _productsPage!: ProductsPage
     private _cartPage!: CartPage;

@@ -7,5 +7,8 @@ test.describe('Sauce Labs Store DEMO - POM WITH CUSTOM TEST', () => {
     await AllPagesSauceLabs.productsPage.addProducts('Jack');
     await AllPagesSauceLabs.productsPage.addProducts('Backpack');
     await AllPagesSauceLabs.cartPage.goToCart();
+    await AllPagesSauceLabs.cartPage.goToCheckout();
+    await AllPagesSauceLabs.cartPage.enterCheckoutInformationAndContinue('Erick', 'Jimenez', '12345');
+    await AllPagesSauceLabs.cartPage.verifyTotalPriceIsGreaterThanZero();
   });
 });
