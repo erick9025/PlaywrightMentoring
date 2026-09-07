@@ -29,14 +29,8 @@ test.beforeAll(async ({ browser }) => {
   
 });
 
-test.beforeEach(async ({ browser }) => {
+test.beforeEach(async () => {
   console.log('beforeEach block (inside baseTestSauceLabsSimpler.ts)');
-
-  myContext = await browser.newContext();
-  myPage = await myContext.newPage();
-  await myPage.setViewportSize({ width: 1920, height: 1080 });
-
-  AllPages = new PagesSauceLabs(myPage); // Initialize the consolidated Pages object for
 });
 
 test.afterEach(async () => {
