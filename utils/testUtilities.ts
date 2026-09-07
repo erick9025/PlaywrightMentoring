@@ -59,6 +59,10 @@ export class TestUtilities {
         return `${year}-${month}-${day} ${hoursStr}:${minutes}:${seconds}.${milliseconds} ${ampm}`;
     }
 
+    public static isNullOrEmpty(text: any): boolean {
+        return text == undefined || text.length == 0 || text === "";
+    }
+
     // locator with 2 different keys, e.g., "//div[@class='inventory_item_description' and contains(.,'{{key1}}')]//button[contains(.,'{{key2}}')]"
     // for above example do 2 calls to replaceCustomKey() to replace key1 and key2 with their respective values
     // let newLocator = TestUtilities.replaceCustomKey(originalLocator, value1, "key1");
