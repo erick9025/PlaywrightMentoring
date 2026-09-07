@@ -2,7 +2,7 @@ import { Page, Locator } from '@playwright/test';
 import { TestUtilities } from '../../utils/testUtilities';
 
 export abstract class BasePage {
-    protected page: Page;
+    public page: Page;
 
     constructor(pwPage: Page) {
         // Assign to the class variable (<----)
