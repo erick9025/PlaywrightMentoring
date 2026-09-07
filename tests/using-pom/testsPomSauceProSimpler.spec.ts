@@ -17,8 +17,9 @@ test.describe('Sauce Labs Store DEMO - POM WITH CUSTOM TEST SIMPLER', () => {
     const firstName: string = "Erick";
 
     expect(fullName.includes(firstName)).toBe(true);
+    
     const locator: Locator = Pages.cartPage.page.locator('.summary_info_label.summary_total_label');
-    await expect(locator).erickExpectCustom('$103.50');
+    await expect(locator).toHavePrice('$103.50');
   });
 
     test('Complete login with POM (sep 7th) with nickname', async ({ Pages: Wrapper }) => {

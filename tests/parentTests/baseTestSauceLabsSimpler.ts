@@ -80,7 +80,7 @@ export const expect = baseExpect.extend({
     };
   },
 
-  async erickExpectCustom(locator, expectedPrice: string) {
+  async toHavePrice(locator, expectedPrice: string) {
 
     const actualPrice = (await locator.textContent())?.trim();
 
