@@ -1,6 +1,6 @@
 import { test } from "../parentTests/baseTestSauceLabs";
 
-test.describe('Sauce Labs Store DEMO - POM WITH CUSTOM TEST', () => {
+test.describe('Sauce Labs Store DEMO - POM WITH CUSTOM TEST MORE COMPLEX', () => {
 
   test('Complete login with POM (sep 3rd)', async ({ Pages }) => {
     await Pages.loginPage.loginWithCredentials();

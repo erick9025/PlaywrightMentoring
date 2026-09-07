@@ -4,21 +4,21 @@ import globalSetup from './globalSetup';
 import globalTeardown from './globalTeardown';
 
 /** Tier 1: Types / Fixture contract
- * Defines the resources available for Customers Portal tests
+ * Defines the resources available for Sauce Labs tests
  */
 type SauceLabsFixtures = {
   createContextBeforeEachTest: boolean;
-  contextCP: BrowserContext;
-  pageCP: Page;
+  context: BrowserContext;
+  page: Page;
   Pages: PagesSauceLabs;
 };
 
 /** Tier 2: Controlled shared state
  * References stored only for shared mode
  */
-let sharedContextCP: BrowserContext | undefined;
-let sharedPageCP: Page | undefined;
-let sharedAllPagesCP: PagesSauceLabs | undefined;
+let sharedContext: BrowserContext | undefined;
+let sharedPage: Page | undefined;
+let sharedAllPages: PagesSauceLabs | undefined;
 let globalSetupExecuted = false;
 
 /** Tier 3: Internal helper functions
@@ -27,11 +27,11 @@ let globalSetupExecuted = false;
 
 // Create the shared context only once and reuse it across tests
 async function ensureSharedContext(browser: Browser): Promise<void> {
-  if (!sharedContextCP) {
-    sharedContextCP = await browser.newContext();
-    sharedPageCP = await sharedContextCP.newPage();
-    await sharedPageCP.setViewportSize({ width: 1920, height: 1080 });
-    sharedAllPagesCP = new PagesSauceLabs(sharedPageCP);
+  if (!sharedContext) {
+    sharedContext = await browser.newContext();
+    sharedPage = await sharedContext.newPage();
+    await sharedPage.setViewportSize({ width: 2560, height: 1440 });
+    sharedAllPages = new PagesSauceLabs(sharedPage);
   }
 }
 
@@ -52,7 +52,7 @@ export const test = base.extend<SauceLabsFixtures>({
   // → The same context is reused across tests
   // → The context is closed later in the afterAll hook
 
-  contextCP: async ({ browser, createContextBeforeEachTest }, use) => {
+  context: async ({ browser, createContextBeforeEachTest }, use) => {
     if (createContextBeforeEachTest) {
       const context: BrowserContext = await browser.newContext();
 
@@ -66,7 +66,7 @@ export const test = base.extend<SauceLabsFixtures>({
     }
 
     await ensureSharedContext(browser);
-    await use(sharedContextCP!);
+    await use(sharedContext!);
   },
 
   // This fixture creates the page using the correct context
@@ -78,34 +78,34 @@ export const test = base.extend<SauceLabsFixtures>({
   // If createContextBeforeEachTest = false:
   // → Reuses the shared page created in the shared context
 
-  pageCP: async ({ contextCP, browser, createContextBeforeEachTest }, use) => {
+  page: async ({ context, browser, createContextBeforeEachTest }, use) => {
     if (createContextBeforeEachTest) {
-      const page: Page = await contextCP.newPage();
-      await page.setViewportSize({ width: 1920, height: 1080 });
+      const page: Page = await context.newPage();
+      await page.setViewportSize({ width: 1440, height: 2560 }); // Invert
       await use(page);
       return;
     }
 
     await ensureSharedContext(browser);
-    await use(sharedPageCP!);
+    await use(sharedPage!);
   },
 
-  // This fixture builds or reuses the consolidated POM (PagesCP)
+  // This fixture builds or reuses the consolidated POM (Pages)
   // If createContextBeforeEachTest = true:
-  // → Creates a new PagesCP instance using the test page
+  // → Creates a new Pages instance using the test page
 
   // If createContextBeforeEachTest = false:
-  // → Reuses the shared PagesCP instance created once
+  // → Reuses the shared Pages instance created once
 
-  Pages: async ({ pageCP, browser, createContextBeforeEachTest }, use) => {
+  Pages: async ({ page, browser, createContextBeforeEachTest }, use) => {
     if (createContextBeforeEachTest) {
-      const allPagesCP: PagesSauceLabs = new PagesSauceLabs(pageCP);
-      await use(allPagesCP);
+      const allPages: PagesSauceLabs = new PagesSauceLabs(page);
+      await use(allPages);
       return;
     }
 
     await ensureSharedContext(browser);
-    await use(sharedAllPagesCP!);
+    await use(sharedAllPages!);
   }
 });
 
@@ -115,7 +115,7 @@ export const test = base.extend<SauceLabsFixtures>({
 
 // Runs once before the tests in this base scope
 test.beforeAll(async () => {
-  console.log('beforeAll block (inside baseTestSauceLabs)');
+  console.log('beforeAll block (inside baseTestSauceLabs.ts)');
 
   if (!globalSetupExecuted) {
     await globalSetup();
@@ -125,23 +125,23 @@ test.beforeAll(async () => {
 
 // Optional: log test execution start
 test.beforeEach(async ({}, testInfo) => {
-  console.log(`beforeEach block (inside baseTestSauceLabs): ${testInfo.title}`);
+  console.log(`beforeEach block (inside baseTestSauceLabs.ts): ${testInfo.title}`);
 });
 
 // Log API performance data collected during each test
 test.afterEach(async ({}, testInfo) => {
-  console.log(`afterEach block (inside baseTestSauceLabs): ${testInfo.title}`);
+  console.log(`afterEach block (inside baseTestSauceLabs.ts): ${testInfo.title}`);
 });
 
 // Runs once after all tests in this base scope
 test.afterAll(async () => {
-  console.log('afterAll block (inside baseTestSauceLabs)');
+  console.log('afterAll block (inside baseTestSauceLabs.ts)');
 
-  if (sharedContextCP) {
-    await sharedContextCP.close();
-    sharedContextCP = undefined;
-    sharedPageCP = undefined;
-    sharedAllPagesCP = undefined;
+  if (sharedContext) {
+    await sharedContext.close();
+    sharedContext = undefined;
+    sharedPage = undefined;
+    sharedAllPages = undefined;
   }
 
   if (globalSetupExecuted) {
