@@ -81,7 +81,7 @@ export const test = base.extend<SauceLabsFixtures>({
   page: async ({ context, browser, createContextBeforeEachTest }, use) => {
     if (createContextBeforeEachTest) {
       const page: Page = await context.newPage();
-      await page.setViewportSize({ width: 1440, height: 2560 }); // Invert VERTICAL
+      await page.setViewportSize({ width: 2560, height: 1440 });
       await use(page);
       return;
     }
