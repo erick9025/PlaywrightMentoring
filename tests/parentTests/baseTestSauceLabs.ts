@@ -7,7 +7,7 @@ import globalTeardown from './globalTeardown';
  * Defines the resources available for Sauce Labs tests
  */
 type SauceLabsFixtures = {
-  createContextBeforeEachTest: boolean;
+  createContextBeforeEachTest: boolean; // BY DEFAULT CONTEXT IS RECREATED FOR EACH TEST (isolated mode) [true], if we change to false, we will use shared context across tests (shared mode)
   context: BrowserContext;
   page: Page;
   Pages: PagesSauceLabs;
@@ -27,10 +27,10 @@ let globalSetupExecuted = false;
 
 // Create the shared context only once and reuse it across tests
 async function ensureSharedContext(browser: Browser): Promise<void> {
-  if (!sharedContext) {
-    sharedContext = await browser.newContext();
-    sharedPage = await sharedContext.newPage();
-    await sharedPage.setViewportSize({ width: 2560, height: 1440 });
+  if (!sharedContext) { // "!" means "not" in TypeScript, so this condition checks if sharedContext is undefined or null
+    sharedContext = await browser.newContext(); // create a new browser context from the browser instance
+    sharedPage = await sharedContext.newPage(); // create a new page from the shared context
+    await sharedPage.setViewportSize({ width: 2560, height: 1440 }); // define screen size for the shared page (HORIZONTAL)
     sharedAllPages = new PagesSauceLabs(sharedPage);
   }
 }
@@ -81,7 +81,7 @@ export const test = base.extend<SauceLabsFixtures>({
   page: async ({ context, browser, createContextBeforeEachTest }, use) => {
     if (createContextBeforeEachTest) {
       const page: Page = await context.newPage();
-      await page.setViewportSize({ width: 1440, height: 2560 }); // Invert
+      await page.setViewportSize({ width: 1440, height: 2560 }); // Invert VERTICAL
       await use(page);
       return;
     }

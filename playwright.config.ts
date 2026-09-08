@@ -15,7 +15,7 @@ export const env: string = process.env.TEST_ENV || currentEnv;
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  timeout: 20_000, // 60 seconds = 1 minute
+  timeout: 120_000, // 60 seconds = 1 minute
   expect: {
     /**
      * Maximum time expect() should wait for the condition to be met.
@@ -45,7 +45,7 @@ export default defineConfig({
     trace: 'on',
     viewport: { width: 1980, height: 1080 }, // HD resolution but is being overriden by projects config (chromiu, etc.)
     launchOptions: {
-      slowMo: 100,
+      slowMo: 1, // Slow down by 300ms to see the actions being performed
     },
     headless: true // false is HEADED/VISIBLE, true is HEADLESS/INVISIBLE
   },

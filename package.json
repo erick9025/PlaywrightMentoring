@@ -23,7 +23,9 @@
     "install-latest:pwDrivers": "npx playwright install",
     "regen": "npx playwright show-report",
     "gitHistoryRecent": "git log --oneline -n 5",
-    "gitHistoryExtended": "git log --pretty=format:\"%h %an %s\" -n 25"
+    "gitHistoryExtended": "git log --pretty=format:\"%h %an %s\" -n 25",
+    "testSauceLabsSimpler": "npx playwright test testsPomSauceProSimpler --workers=2 --retries=0 --headed",
+    "testSauceLabsPro": "npx playwright test testsPomSaucePro.spec.ts --workers=1 --retries=0 --headed"
   },
   "repository": {
     "type": "git",

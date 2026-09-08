@@ -1,6 +1,7 @@
 import { test } from "../parentTests/baseTestSauceLabsSimpler";
 import { expect } from "@playwright/test";
 import { Asserts } from "../../utils/asserts";
+import { helloWorld } from "../../oop/dummy";
 
 test.describe('Sauce Labs Store DEMO - POM WITH CUSTOM TEST SIMPLER', () => {
 
@@ -48,5 +49,7 @@ test.describe('Sauce Labs Store DEMO - POM WITH CUSTOM TEST SIMPLER', () => {
 
     // USE MY OWN ASSERTION CLASS
     Asserts.assertStringContains(fullName, firstName, "");
+
+    await helloWorld(); // Call the helloWorld function from oop/dummy.ts
   });
 });

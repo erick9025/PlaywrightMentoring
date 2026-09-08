@@ -7,6 +7,10 @@ export class ProductsPage extends BasePage {
     private _howManyProductsAdded: number = 0;
     private _buttonAnyProduct: string = "//div[@class='inventory_item_description' and contains(.,'{{key}}')]//button";
 
+    public async openProductsPage(): Promise<void> {
+        await this.openPage('https://www.saucedemo.com/inventory.html');
+    }
+
     public async addProducts(wantedProduct: string): Promise<void> {
         const finalLocator: string = TestUtilities.replaceKeyInLocator(this._buttonAnyProduct, wantedProduct);
 

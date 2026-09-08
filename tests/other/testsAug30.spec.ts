@@ -111,7 +111,7 @@ test.describe('Checkboxes and Radio Buttons Tests', () => {
     // Click again to check
     await page.locator(checkAlone).click(); // check
 
-    const evaluateBeforeClicking: boolean = false;
+    const evaluateBeforeClicking: boolean = true;
 
     /* IMPORTANT NOTE FOR PARALLEL ACTIONS
     The page bundle confirms the deeper issue: these are real mouse actions on one shared Page, so concurrent .click() calls compete for the page’s single mouse position and event sequence. 

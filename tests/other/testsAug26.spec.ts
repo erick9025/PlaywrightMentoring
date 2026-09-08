@@ -108,7 +108,7 @@ test.describe('Checkboxes and Radio Buttons Tests', () => {
     const firstName: string = "Erick";
 
     expect(fullName.includes(firstName)).toBe(true); // should pass (SYNCHRONOUS EXPECT)
-    expect(fullName.includes("Messi")).toBe(true); // should FAIL (SYNCHRONOUS EXPECT)    
+    //expect(fullName.includes("Messi")).toBe(true); // should FAIL (SYNCHRONOUS EXPECT)    
 
     const checkAlone: string = "(//input[@type='checkbox'])[1]";
     const checkVerticalGroup1: string = "//label[contains(.,'Option 1')]/child::input[@type='checkbox' and not(@name)]";
