@@ -1,18 +1,23 @@
 import { expect } from '@playwright/test';
 import { BasePage } from '../../parent/basePage';
 import { TestUtilities } from '../../../utils/testUtilities';
+import { ProductsElements } from '../elements/productsElements';
+import { ProductsConstants } from '../constants/productsConstants';
 
 export class ProductsPage extends BasePage {
 
-    private _howManyProductsAdded: number = 0;
-    private _buttonAnyProduct: string = "//div[@class='inventory_item_description' and contains(.,'{{key}}')]//button";
+    private _howManyProductsAdded: number = 0; // not a constant, remains here
+    
+    // Private elements necessary to access other stuff
+    private _elements: ProductsElements = new ProductsElements();
+    private _constants: ProductsConstants = new ProductsConstants();
 
     public async openProductsPage(): Promise<void> {
         await this.openPage('https://www.saucedemo.com/inventory.html');
     }
 
     public async addProducts(wantedProduct: string): Promise<void> {
-        const finalLocator: string = TestUtilities.replaceKeyInLocator(this._buttonAnyProduct, wantedProduct);
+        const finalLocator: string = TestUtilities.replaceKeyInLocator(this._elements.buttonAnyProduct, wantedProduct);
 
         // Add them
         await this.clickElement(finalLocator, `Add Product: ${wantedProduct}`);
@@ -29,5 +34,38 @@ export class ProductsPage extends BasePage {
         await expect(this.page.locator('.shopping_cart_badge')).toHaveText(this._howManyProductsAdded.toString());
 
         TestUtilities.logToConsole("So far we have added " + this._howManyProductsAdded + " products to the cart.");
+    }
+
+    public printProducts(): void {
+        // Print all the available products
+        TestUtilities.logToConsole("All available products (LAMBDA FUNCTION)");
+        this._constants.availableProducts.forEach(product => TestUtilities.logToConsole("..." + product)); // Lambda function
+    }
+
+    public printProductsMultiple(): void {
+        let ordinal: number = 1;
+
+        // Print all the available products
+        TestUtilities.logToConsole("All available products (LAMBDA FUNCTION 2)");
+        this._constants.availableProducts.forEach(product => {
+            TestUtilities.logToConsole("#" + ordinal++);
+            TestUtilities.logToConsole("..." + product);
+        }
+            
+        ); // Lambda function
+    }
+
+    public printProductsNoLambda(): void  {
+        TestUtilities.logToConsole("All available products (REGULAR FOR)");
+        for(let index: number = 0; index < this._constants.availableProducts.length; index++) {
+            TestUtilities.logToConsole("..." + this._constants.availableProducts[index])
+        }
+    }
+
+    // APPLY POLYMORPHISM (OPEN-CLOSED) TO DO OVERRIDING OF 'CLICK'
+    protected override async clickElement(locator: string, description: string, timeoutMs: number = 5_000): Promise<void> {        
+        await this.page.click(locator, { timeout: timeoutMs, force: true, scroll: "auto" });
+        TestUtilities.logToConsole(`We have clicked on element: ${description} using locator: ${locator} and forcing while doing auto scroll first`);
+        //super.clickElement(locator, description, timeoutMs); // combine child + parent (NOT HERE BECAUSE WILL CAUSE 2 CLICKS)
     }
 }
