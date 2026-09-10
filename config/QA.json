@@ -1,0 +1,40 @@
+{
+    "baseURL": "https://qa.ejimenez.com",
+    "erickVar" : "zwei",
+    "erickVarString" : "stringQA",
+    "erickVarInt" : 2,
+    "erickVarFloat" : 2.2,
+    "erickVarBoolean" : true,
+    "users": [
+        { 
+            "username": "erick.1@test.com",
+            "password": "Pass1",
+            "role": "Admin",
+            "accounts": [
+                {
+                    "accountNumber" : "0001",
+                    "nickname": "ONE"
+                },
+                {
+                    "accountNumber" : "0002",
+                    "nickname": "TWO"
+                }
+            ]
+        },
+        { 
+            "username": "erick.2@test.com",
+            "password": "Pass2",
+            "role": "Regular User",
+            "accounts": [
+                {
+                    "accountNumber" : "0003",
+                    "nickname": "THREE"
+                },
+                {
+                    "accountNumber" : "0004",
+                    "nickname": "FOUR"
+                }
+            ]
+        }        
+    ]
+  }

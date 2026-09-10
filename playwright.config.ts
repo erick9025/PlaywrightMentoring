@@ -1,59 +1,55 @@
 import { defineConfig } from '@playwright/test';
+import dotenv from 'dotenv';
+import path from 'path';
 
-const currentEnv: string = 'UAT';
+const currentEnv: string = 'QA';
+
+// Look for system environment variable 'TEST_ENV', if found will take its value, if not found will take whatever it's after "||"
 export const env: string = process.env.TEST_ENV || currentEnv;
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+// Load the environment file
+dotenv.config({
+  path: path.resolve(__dirname, `${env}.env`)
+});
 
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
+console.log(`Running tests against: ${env}`);
+console.log(`URL: ${process.env.URL}`);
+
 export default defineConfig({
-  timeout: 120_000, // 60 seconds = 1 minute
+  timeout: 120_000,
+
   expect: {
-    /**
-     * Maximum time expect() should wait for the condition to be met.
-     * For example in `await expect(locator).toHaveText();`
-     */
     timeout: 5_000
   },
+
   testDir: './tests',
-  /* Run tests in files in parallel */
+
   fullyParallel: true,
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
+
   forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
+
   retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : 2,  
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
+
+  workers: process.env.CI ? 1 : 2,
+
   reporter: [
     ['html', { open: 'always' }]
   ],
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+
   use: {
-    /* Base URL to use in actions like `await page.goto('')`. */
-    // baseURL: 'http://localhost:3000',
+    baseURL: process.env.URL,
 
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',
-    viewport: { width: 1980, height: 1080 }, // HD resolution but is being overriden by projects config (chromiu, etc.)
-    launchOptions: {
-      slowMo: 1, // Slow down by 300ms to see the actions being performed
-    },
-    headless: true // false is HEADED/VISIBLE, true is HEADLESS/INVISIBLE
-  },
 
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
+    viewport: {
+      width: 1980,
+      height: 1080
+    },
+
+    launchOptions: {
+      slowMo: 1
+    },
+
+    headless: true
+  }
 });
