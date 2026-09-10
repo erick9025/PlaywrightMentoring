@@ -1,15 +1,17 @@
 import { defineConfig } from '@playwright/test';
-import { ProjectTestConfig } from './ProjectTestConfig';
+import { ProjectTestConfig } from './config/models/projectTestConfig';
 import * as fs from 'fs';
 import * as path from 'path';
 
 export const env = process.env.TEST_ENV || 'DEV';
 
 // Build path to the correct config file
-export const configPath = path.resolve(__dirname, `./configs/${env}.json`);
+export const configPath = path.resolve(__dirname, `./config/environment/${env}.json`);
 
-// Parse JSON config
-export const configFile = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+// Parse JSON config when an environment-specific file is available.
+export const configFile = fs.existsSync(configPath)
+  ? JSON.parse(fs.readFileSync(configPath, 'utf-8'))
+  : {};
 
 /**
  * Read environment variables from file.
@@ -69,4 +71,6 @@ export const config: ProjectTestConfig = {
   //   url: 'http://localhost:3000',
   //   reuseExistingServer: !process.env.CI,
   // },
-});
+};
+
+export default defineConfig(config);
