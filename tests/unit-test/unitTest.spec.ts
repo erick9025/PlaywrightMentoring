@@ -35,8 +35,6 @@ test.describe('Unit Test', () => {
         print(".......nickname: " + account.nickname);
         print();
       })
-
-      print();
     });
   });
 
