@@ -4,7 +4,7 @@
     "erickVarString" : "stringQA",
     "erickVarInt" : 2,
     "erickVarFloat" : 2.2,
-    "erickVarBoolean" : true,
+    "erickVarBoolean" : false,
     "users": [
         { 
             "username": "erick.1@test.com",

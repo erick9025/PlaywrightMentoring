@@ -4,8 +4,8 @@ import { IEmailProvider } from "./iEmailProvider";
 
 export class GmailPage extends BasePage implements IEmailProvider {
     public async login(user: string, password: string): Promise<void> {
-        this.openPage("http://gmail.com/");
-        this.page.waitForTimeout(7_000);
+        await this.openPage("http://gmail.com/");
+        await this.page.waitForTimeout(7_000);
         TestUtilities.logToConsole("We are simulating going to Google Gmail inbox");
     }
 

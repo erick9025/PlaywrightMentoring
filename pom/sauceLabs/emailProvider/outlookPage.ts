@@ -4,10 +4,10 @@ import { IEmailProvider } from "./iEmailProvider";
 
 export class OutlookPage extends BasePage implements IEmailProvider {
     public async login(user: string, password: string): Promise<void> {
-        this.openPage("https://outlook.cloud.microsoft");
-        this.page.waitForTimeout(7_000);
-        this.enterText("input[type='email']", "Email [Input]", user);
-        this.clickElement("input[type='submit']", "Next [Button]");
+        await this.openPage("https://outlook.cloud.microsoft");
+        await this.page.waitForTimeout(7_000);
+        await this.enterText("input[type='email']", "Email [Input]", user);
+        await this.clickElement("input[type='submit']", "Next [Button]");
     }
 
     public async goToInbox(): Promise<void> {
