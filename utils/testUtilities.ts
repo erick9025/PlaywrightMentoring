@@ -15,6 +15,14 @@ export class TestUtilities {
         });
     }
 
+    public static logToConsoleBold(message: string): void {   
+        const timestamp: string = TestUtilities.returnCurrentTimeStamp();
+        console.log(timestamp + ": " + message);
+        test.info().annotations.push({
+            type: `${timestamp} ${message}`
+        });
+    }
+
     //--------------------------------------------------------- SAFE ANNOTATION HELPER ---------------------------------------------------------
     /**
      * Safely push annotations to test info. Only works within an active test context.
@@ -74,5 +82,9 @@ export class TestUtilities {
     // if there is just one key and it is called "key", then use this method instead of replaceCustomKey()
     public static replaceKeyInLocator(original: string, replaceValue: string): string {
         return original.replace("{{key}}", replaceValue);
+    }
+
+    public static convertStringToDoubleNumber(text: string): number {
+        return parseFloat(text.replace(/[^0-9.]/g, "").replace(/,/g, ""));
     }
 }

@@ -3,6 +3,7 @@ import { BasePage } from '../../parent/basePage';
 import { TestUtilities } from '../../../utils/testUtilities';
 import { ProductsElements } from '../elements/productsElements';
 import { ProductsConstants } from '../constants/productsConstants';
+import { SortingOption } from '../../../utils/enums/sortingOption';
 
 export class ProductsPage extends BasePage {
 
@@ -11,6 +12,8 @@ export class ProductsPage extends BasePage {
     // Private elements necessary to access other stuff
     private _elements: ProductsElements = new ProductsElements();
     private _constants: ProductsConstants = new ProductsConstants();
+
+    // Asynchronous methods
 
     public async openProductsPage(): Promise<void> {
         await this.openPage('https://www.saucedemo.com/inventory.html');
@@ -35,6 +38,17 @@ export class ProductsPage extends BasePage {
 
         TestUtilities.logToConsole("So far we have added " + this._howManyProductsAdded + " products to the cart.");
     }
+
+    public async sortProducts(byOption: SortingOption): Promise<void> {
+        const correspondingValue: string = this._constants.options[byOption];
+        await this.selectDropdownOptionByValue(this._elements.ddlSort, correspondingValue, "Sort by [Dropdown]");
+    } 
+
+    public async verifySortingIsCorrect(byOption: SortingOption): Promise<void> {
+        await this.verifyListIsSorted(this._elements.returnLocatorForSorting(byOption), byOption, true);
+    }
+
+    // Synchronous methods
 
     public printProducts(): void {
         // Print all the available products

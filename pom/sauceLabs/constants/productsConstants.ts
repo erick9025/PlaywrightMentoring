@@ -1,3 +1,5 @@
+import { SortingOption } from "../../../utils/enums/sortingOption";
+
 export class ProductsConstants {
     public readonly availableProducts: string[] = [
         "Sauce Labs Backpack",
@@ -9,4 +11,11 @@ export class ProductsConstants {
     ];
 
     public readonly legalMessage: string = "© 2026 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy";
+
+    public readonly options: Record<SortingOption, string> = {
+        [SortingOption.NumericDescending]: "hilo",
+        [SortingOption.NumericAscending]: "lohi",
+        [SortingOption.AlphabeticalAscending]: "az",
+        [SortingOption.AlphabeticalDescending]: "za"
+    };
 }
