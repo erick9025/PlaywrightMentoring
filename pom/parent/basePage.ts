@@ -107,6 +107,10 @@ export abstract class BasePage {
                 break;
             default:
                 Asserts.assertFail("Invalid sorting option provided: " + orderByOptionSelected);
-        }
+        }        
+    }
+
+    public async wait2Seconds(): Promise<void> {
+        await this.page.waitForTimeout(2_000);
     }
 }

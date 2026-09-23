@@ -82,4 +82,16 @@ export class ProductsPage extends BasePage {
         TestUtilities.logToConsole(`We have clicked on element: ${description} using locator: ${locator} and forcing while doing auto scroll first`);
         //super.clickElement(locator, description, timeoutMs); // combine child + parent (NOT HERE BECAUSE WILL CAUSE 2 CLICKS)
     }
+
+    public async create(): Promise<void> {
+        TestUtilities.logToConsole("Creating something");
+    }
+
+    public async edit(): Promise<void> {
+        TestUtilities.logToConsole("Updating something");
+    }
+
+    public async delete(): Promise<void> {
+        TestUtilities.logToConsole("Deleting something");
+    }
 }
